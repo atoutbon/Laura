@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Uma carta para Laura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --desk:#DCE2E9; --paper:#FBFAF7; --cell:#FFFFFF; --ink:#1F2A44; --soft:#5C6578; --line:#CBD0D9;
+  --wine:#8A2E3B; --key:#F3E1E4; --ok:#E4EEE6; --okline:#3E7A4A; --shadow:rgba(31,42,68,.16);
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --hand:"Caveat","Segoe Script","Bradley Hand",cursive;
+  --cs:min(2.5rem,8.6vw);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--desk:#101319;--paper:#1B2029;--cell:#232A35;--ink:#E8ECF3;--soft:#9EA7B8;--line:#37404E;--wine:#D98C97;--key:#3A2429;--ok:#1F3326;--okline:#6DB27C;--shadow:rgba(0,0,0,.5);color-scheme:dark}
+}
+:root[data-theme="dark"]{--desk:#101319;--paper:#1B2029;--cell:#232A35;--ink:#E8ECF3;--soft:#9EA7B8;--line:#37404E;--wine:#D98C97;--key:#3A2429;--ok:#1F3326;--okline:#6DB27C;--shadow:rgba(0,0,0,.5);color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--desk);color:var(--ink);font-family:var(--serif);font-size:1.18rem;line-height:1.7}
+.wrap{max-width:36rem;margin:0 auto;padding:3.2rem 1rem 4rem}
+.letter{position:relative;background:var(--paper);border-radius:3px;padding:4.2rem 1.4rem 2.6rem;box-shadow:0 1px 2px var(--shadow),0 18px 40px -18px var(--shadow);animation:rise 1s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.seal{position:absolute;top:-1.7rem;left:50%;width:3.4rem;height:3.4rem;margin-left:-1.7rem;border-radius:50%;display:grid;place-items:center;font-family:var(--hand);font-weight:600;font-size:1.9rem;color:#F6E3E6;background:radial-gradient(circle at 35% 30%,#B14656,var(--wine) 62%,#6C202B);box-shadow:inset 0 -3px 5px rgba(0,0,0,.28),0 3px 8px var(--shadow)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seal{background:radial-gradient(circle at 35% 30%,#B14656,#8A2E3B 62%,#6C202B)}}
+.hi{font-family:var(--hand);font-weight:600;font-size:2.4rem;line-height:1.1;margin:0 0 1.2rem;color:var(--wine)}
+p{margin:0 0 1.2rem}
+.row{margin:0 0 1.5rem}
+.clue{font-size:.98rem;color:var(--soft);margin:0 0 .4rem;line-height:1.45}
+.clue b{font-family:var(--hand);font-size:1.3rem;font-weight:600;color:var(--wine);margin-right:.4rem}
+.cells{display:grid;grid-template-columns:repeat(8,var(--cs));gap:3px}
+.cells input,.cells span{width:var(--cs);height:var(--cs)}
+.cells input{font-family:var(--serif);font-weight:600;font-size:calc(var(--cs)*.52);text-align:center;text-transform:uppercase;color:var(--ink);background:var(--cell);border:1px solid var(--line);border-radius:3px;padding:0;caret-color:var(--wine)}
+.cells input.key{background:var(--key);border-color:var(--wine)}
+.cells input:focus-visible{outline:3px solid var(--wine);outline-offset:1px}
+.row.ok input{background:var(--ok);border-color:var(--okline)}
+.row.ok input.key{background:var(--key);border-color:var(--wine)}
+.fact{display:none;font-size:.92rem;font-style:italic;color:var(--soft);margin:.5rem 0 0;line-height:1.45}
+.row.ok .fact{display:block}
+.note{font-size:.92rem;color:var(--soft);margin:1.8rem 0 0}
+.note i{display:inline-block;width:.9rem;height:.9rem;background:var(--key);border:1px solid var(--wine);border-radius:3px;vertical-align:-.12rem;margin-right:.4rem}
+#reveal{display:none;margin-top:2.6rem;padding-top:2.4rem;border-top:1px solid var(--line);text-align:center}
+#reveal.on{display:block;animation:fade .9s ease-out both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.word{font-family:var(--hand);font-weight:600;font-size:4.2rem;line-height:1;color:var(--wine);margin:0 0 1.2rem;letter-spacing:.04em}
+.ask{font-size:1.3rem;line-height:1.5;margin-bottom:1.1rem}
+.small{font-size:1.02rem;color:var(--soft);margin-bottom:1.8rem}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
+button{font-family:var(--serif);font-size:1.05rem;font-weight:600;border-radius:999px;padding:.8rem 1.8rem;cursor:pointer;border:1px solid var(--wine);transition:transform .2s ease}
+button:focus-visible{outline:3px solid var(--wine);outline-offset:3px}
+#yes{background:var(--wine);color:#fff;transform:scale(var(--s,1))}
+#no{background:transparent;color:var(--wine)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #yes{color:#2A0F14}}
+.hint{min-height:3.2rem;margin:1.3rem auto 0;max-width:24rem;font-size:1rem;color:var(--soft);font-style:italic;line-height:1.5}
+#done{display:none;margin-top:2.6rem;padding-top:2.4rem;border-top:1px solid var(--line);text-align:center}
+#done.on{display:block;animation:fade .9s ease-out both}
+#done .hi{margin-bottom:.8rem}
+.sign{margin:1.8rem 0 0;font-family:var(--hand);font-size:1.7rem;font-weight:500;line-height:1.2;color:var(--wine)}
+.sign span{display:block;font-size:2.3rem;font-weight:600}
+@media (prefers-reduced-motion:reduce){
+  .letter,#reveal.on,#done.on{animation:none}
+  button{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <main class="letter">
+    <div class="seal" aria-hidden="true">L</div>
+
+    <p class="hi">Laura,</p>
+    <p>Eu poderia ter mandado uma mensagem qualquer, mas você merece mais capricho. Acho você incrível, de um jeito que dá vontade de escrever à mão, e por isso esta carta tem um jogo no meio.</p>
+    <p>Resolva a cruzadinha abaixo. A coluna marcada guarda o que eu queria te dizer.</p>
+
+    <div id="grid"></div>
+
+    <p class="note"><i></i>Coluna da mensagem</p>
+
+    <section id="reveal" aria-live="polite">
+      <p class="word" id="word"></p>
+      <p class="ask">Então, Laura: topa beber algo comigo?<br>Você escolhe o lugar, e o primeiro brinde é por minha conta.</p>
+      <p class="small">Seja qual for a resposta, eu queria que você soubesse que acho você incrível.</p>
+      <div class="actions">
+        <button id="yes" type="button">Bora</button>
+        <button id="no" type="button">Preciso pensar</button>
+      </div>
+      <p class="hint" id="hint" aria-live="polite"></p>
+    </section>
+
+    <section id="done" aria-live="polite">
+      <p class="hi">Palavra certa.</p>
+      <p>Então está combinado. Me diz qual dia fica bom, e o primeiro brinde é meu.</p>
+      <p class="sign">Com carinho,<span>Bernades</span></p>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  var K=2,W=8;
+  var rows=[
+    {w:'BRINDE',k:0,c:'Gesto de erguer o copo antes do primeiro gole',f:'Diz a superstição que brindar sem olhar nos olhos dá azar.'},
+    {w:'MOJITO',k:1,c:'Drinque cubano de hortelã, limão e rum',f:'Uma das teorias diz que o nome vem de “mojo”, um tempero cubano.'},
+    {w:'CERVEJA',k:2,c:'Feita há milhares de anos pelos sumérios, que tinham até uma deusa dela',f:'Costuma ser citada como a bebida mais popular do mundo, depois da água e do chá.'},
+    {w:'CACHACA',k:1,c:'Destilado de cana, a base da caipirinha',f:'O Brasil comemora o Dia Nacional da Cachaça em 13 de setembro.'}
+  ];
+  var grid=document.getElementById('grid');
+  function norm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z]/g,'').toUpperCase()}
+  rows.forEach(function(r,ri){
+    var start=K-r.k,box=document.createElement('div');
+    box.className='row';
+    var p=document.createElement('p');p.className='clue';
+    p.innerHTML='<b>'+(ri+1)+'</b>'+r.c+' ('+r.w.length+' letras)';
+    var cells=document.createElement('div');cells.className='cells';
+    r.inputs=[];
+    for(var c=0;c<W;c++){
+      if(c>=start&&c<start+r.w.length){
+        var i=document.createElement('input');
+        i.type='text';i.maxLength=1;i.autocomplete='off';i.autocapitalize='characters';i.spellcheck=false;
+        i.setAttribute('aria-label','Palavra '+(ri+1)+', letra '+(c-start+1));
+        if(c===K)i.className='key';
+        r.inputs.push(i);cells.appendChild(i);
+      }else{cells.appendChild(document.createElement('span'))}
+    }
+    var ft=document.createElement('p');ft.className='fact';ft.textContent='Você sabia? '+r.f;
+    box.appendChild(p);box.appendChild(cells);box.appendChild(ft);grid.appendChild(box);r.box=box;
+    r.inputs.forEach(function(i,idx){
+      i.addEventListener('input',function(){
+        i.value=norm(i.value).slice(-1);
+        if(i.value&&r.inputs[idx+1])r.inputs[idx+1].focus();
+        check();
+      });
+      i.addEventListener('keydown',function(e){
+        if(e.key==='Backspace'&&!i.value&&r.inputs[idx-1])r.inputs[idx-1].focus();
+        if(e.key==='ArrowRight'&&r.inputs[idx+1])r.inputs[idx+1].focus();
+        if(e.key==='ArrowLeft'&&r.inputs[idx-1])r.inputs[idx-1].focus();
+      });
+    });
+  });
+  var revealed=false;
+  function check(){
+    var n=0;
+    rows.forEach(function(r){
+      var ok=r.inputs.map(function(i){return i.value}).join('')===r.w;
+      r.box.classList.toggle('ok',ok);
+      if(ok)n++;
+    });
+    if(n===rows.length&&!revealed){
+      revealed=true;
+      document.getElementById('word').textContent=rows.map(function(r){return r.w.charAt(r.k)}).join('');
+      var el=document.getElementById('reveal');el.classList.add('on');
+      var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({block:'center',behavior:rm?'auto':'smooth'});
+    }
+  }
+  var yes=document.getElementById('yes'),no=document.getElementById('no'),hint=document.getElementById('hint');
+  var lines=[
+    'Pista: é a palavra que você acabou de montar.',
+    'Pista: combina com mojito, cerveja e cachaça.',
+    'Pista: é a única resposta que fecha o jogo.',
+    'Última pista: está escrita no botão ao lado.'
+  ];
+  var n=0;
+  no.addEventListener('click',function(){
+    hint.textContent=lines[Math.min(n,lines.length-1)];
+    n++;
+    yes.style.setProperty('--s',Math.min(1+n*0.12,1.6));
+    if(n>=lines.length)no.textContent='Tá bom, bora';
+    if(n>lines.length)yes.click();
+  });
+  yes.addEventListener('click',function(){
+    document.getElementById('reveal').style.display='none';
+    var d=document.getElementById('done');d.classList.add('on');
+    d.scrollIntoView({block:'center'});
+  });
+})();
+</script>
+</body>
+</html>
